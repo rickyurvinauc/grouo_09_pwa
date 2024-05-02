@@ -1,7 +1,7 @@
 module.exports = {
     files: ['./**/*.{html,js,css}'],
     server: false,
-    proxy: 'localhost:3000',
+    proxy: 'localhost:8080',
     port: 8080,
     open: false
 };

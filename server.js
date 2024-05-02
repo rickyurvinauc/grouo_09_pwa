@@ -16,4 +16,4 @@ app.get('/new_event', (req, res) => {
 });
 
 // Configura Express para que escuche en el puerto 8080
-app.listen(3000, () => console.log('Server listening on port 8080'));
+app.listen(8080, () => console.log('Server listening on port 8080'));
