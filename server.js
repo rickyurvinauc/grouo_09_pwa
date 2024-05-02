@@ -15,5 +15,9 @@ app.get('/new_event', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'new_event.html'));
 });
 
+app.get('/event', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'event.html'));
+});
+
 // Configura Express para que escuche en el puerto 8080
 app.listen(8080, () => console.log('Server listening on port 8080'));

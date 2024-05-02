@@ -34,4 +34,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
             containerFriends.removeChild(newDiv);
         });
     });
+
+    const form = document.getElementById('event-form');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const friendInputs = document.querySelectorAll('#container-friends input');
+
+        // Crea un array para almacenar los nombres de los amigos
+        const friends = [];
+
+        // Itera sobre los inputs de los nombres de los amigos y agrega cada nombre al array
+        friendInputs.forEach(input => {
+            friends.push(input.value);
+        });
+
+        const eventForm = {
+            event_name: formData.get('event_name'),
+            currency: formData.get('currency'),
+            participant_name: formData.get('participant_name'),
+            friends: friends,
+        };
+
+        console.log(eventForm);
+    });
 });
