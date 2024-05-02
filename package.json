@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js & browser-sync start --config bs-config.js"
   },
   "devDependencies": {
     "browser-sync": "^3.0.2",
