@@ -1,36 +1,36 @@
-# Prime Number Factorization
+# SplittyPie Clone
 
-This project is a web application that performs prime number factorization using two different methods: Pure JavaScript and WebAssembly (Wasm). The application allows users to input a number and then factorize it using one of the two methods.
+This project is a Progressive Web Application (PWA) that replicates the functionality of [SplittyPie](https://splittypie.com). The application allows users to create events and manage expenses in a user-friendly and efficient manner.
 
-## How it works
+## Features
 
-The application consists of two main parts:
+- **Create Events**: Users can create new events and manage them independently.
+- **Manage Expenses**: Within each event, users can add expenses and assign them to participants.
+- **Responsive Design**: The application is designed to be used on any device, with a responsive layout that adapts to different screen sizes.
+- **Offline Functionality**: As a PWA, the application can be used even when there is no internet connection, with changes syncing seamlessly when the connection is restored.
 
-1. **Factorization using Pure JavaScript**: This part of the application uses a simple factorization algorithm in JavaScript to break down a number into its prime factors.
+## Technologies
 
-2. **Factorization using WebAssembly**: This part of the application uses a factorization algorithm written in C, which is then compiled to WebAssembly for execution in the browser. This allows for faster and more efficient computation, especially for large numbers.
+This project is built using the following technologies:
 
-## Dependencies
-
-This project depends on the following technologies:
-
-- JavaScript: used for the application logic and user interaction.
-- C: used to write the factorization algorithm that is compiled to WebAssembly.
-- Emscripten: a tool used to compile the C code to WebAssembly.
-- HTML/CSS: used for the application's user interface.
+- **JavaScript**: Used for the application logic and user interaction.
+- **Tailwind CSS**: A utility-first CSS framework used for styling the application.
+- **Flowbite**: A JavaScript library that provides interactive components for Tailwind CSS.
 
 ## Installation
 
 To install and run this project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/IIC3585-2024/wasm-group-09`
-2. Navigate to the project directory: `cd wasm-daw`
-3. Compile the C code to WebAssembly using Emscripten: `emcc -O3 -s WASM=1 -o prime_factors.js prime_factors.c -sEXPORTED_FUNCTIONS="['_findPrimeFactors','_malloc','_free']" -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,getValue`
-4. Open the `index.html` file in your browser to run the application.
+1. Clone the repository: `git clone https://github.com/rickyurvinauc/grouo_09_pwa`
+2. Navigate to the project directory: `cd splittypie-clone`
+3. Install the dependencies: `npm install`
+4. Start the development server: `npm start`
+
+Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
 
 ## Usage
 
-To use the application, simply input a number into the corresponding input field and click the "Factorize" button. The application will calculate the prime factors of the number and display the results on the page.
+To use the application, navigate to the hosted URL and start by creating a new event. You can then add participants and their respective expenses to the event. The application will automatically calculate who owes who and how much.
 
 ## Contributing
 
@@ -38,7 +38,7 @@ Contributions to this project are welcome. If you find a bug or have a suggestio
 
 ## License
 
-This project is licensed under the terms of the MIT license.# wasm-daw
+This project is licensed under the terms of the MIT license.
 
 ## Team Members
 Jose Cáceres, Ricardo Urvina, Sofía Villalobos.
