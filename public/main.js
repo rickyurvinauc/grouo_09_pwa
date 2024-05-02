@@ -45,35 +45,3 @@ themeToggleBtn.addEventListener('click', function() {
 
 });
 
-function homePage() {
-    return document.getElementById('home').innerHTML;
-}
-
-function newEventPage() {
-    return fetch('new_event.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('app').innerHTML = data;
-        });
-}
-function navigate(page) {
-    // Actualiza el contenido de la página
-    document.getElementById('app').innerHTML = page();
-
-    // Agrega la página al historial de navegación
-    window.history.pushState({}, '', `/${page.name}`);
-}
-
-window.onpopstate = function(event) {
-    // Actualiza el contenido de la página basado en la URL
-    if (window.location.pathname === '/') {
-        document.getElementById('app').innerHTML = homePage();
-    } else if (window.location.pathname === '/newEventPage') {
-        document.getElementById('app').innerHTML = newEventPage();
-    }
-};
-
-document.getElementById('new-event-link').addEventListener('click', function(event) {
-    event.preventDefault();
-    navigate(newEventPage);
-});
