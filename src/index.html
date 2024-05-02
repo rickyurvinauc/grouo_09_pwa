@@ -6,20 +6,13 @@
     <link href="./output.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
 </head>
 <body>
-<div class="bg-white dark:bg-gray-900 h-screen">
+<div class="bg-white dark:bg-gray-900 h-auto">
     <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
         <div class="max-w-screen-md flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="../images/pie.jpg" class="h-8" alt="PWA Logo">
+                <img src="images/pie.jpg" class="h-8" alt="PWA Logo">
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PIE G9</span>
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -76,21 +69,105 @@
         </div>
     </nav>
     <div class="max-w-screen-md mx-auto mt-20">
-        <div class="grid grid-cols-10 gap-4">
-            <div class="col-span-7 space-y-4">
-                <h1 class="text-2xl font-bold text-black dark:text-white">Easy expense splitting</h1>
-                <p class="text-black dark:text-white">Create event, add users and their expenses. Splittypie will calculate who owes who and how much exactly. It's Free and with No Sign Up.</p>
-                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-upper">Create new event</button>
+        <div class="grid md:grid-cols-10 lg:grid-cols-10 gap-4 mt-6 mb-6">
+            <div class="md:col-span-10 lg:col-span-6 space-y-4  lg:text-left sm:text-center md:text-center  flex flex-col justify-items-center justify-center">
+                <h1 class="text-2xl font-bold text-black dark:text-white pl-3">Easy expense splitting</h1>
+                <p class="text-black dark:text-white pl-3">Create event, add users and their expenses. Splittypie will
+                    calculate who owes who and how much exactly. It's Free and with No Sign Up.</p>
+                <div class="pl-3">
+                    <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600 text-transform: uppercase">Create new
+                        event
+                    </button>
+                </div>
             </div>
-            <div class="col-span-3">
-                <img src="../images/mobile.png" alt="Imagen descriptiva" class="h-full w-full object-cover pr-10">
+            <div class="md:col-span-10 lg:col-span-4 ">
+                <div class="flex flex-row justify-items-center justify-center">
+                    <img src="images/mobile.png" alt="Imagen descriptiva" class="h-80 max-w-full">
+                </div>
             </div>
         </div>
-        <div class="grid grid-cols-6 grid-rows-3">
-            <!-- Grid item with col-span-full and row-start-3 -->
-            <div class="col-span-full row-start-3">
-              <h2>You have already created the following events</h2>
+        <div class="grid grid-cols-1 grid-rows-1 mt-6 mb-6">
+            <div class="col-span-full  text-center">
+                <h2 class="text-3xl text-black dark:text-white">You have already created the following events</h2>
             </div>
+        </div>
+        <div class="grid place-items-center mt-6 mb-6">
+            <div class="w-48 text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <button type="button"
+                        class="inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                    <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9.293l5.293-5.293a1 1 0 011.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 011.414-1.414L10 8.586z" clip-rule="evenodd"/>
+                    </svg>
+                    Activity 1
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 grid-rows-1 mt-6 mb-6">
+            <div class="col-span-full  text-center">
+                <h2 class="text-3xl text-black dark:text-white">Find more about Splittypie</h2>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="flex flex-col items-center justify-center text-center">
+                <i class="fas fa-laptop fa-5x text-black dark:text-white"></i>
+                <h3 class="text-2xl font-bold text-black dark:text-white">Works anywhere</h3>
+                <p class="text-black dark:text-white">
+                    Accessible on any device with modern web browser. It has look and feel of mobile device application
+                    thanks to resposive design.
+                </p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center">
+                <i class="fas fa-clock fa-5x text-black dark:text-white" ></i>
+                <h3 class="text-2xl font-bold text-black dark:text-white">Fast and realtime</h3>
+                <p class="text-black dark:text-white">
+                    It's really fast and dynamic. What's more, your friends will see all your changes in realtime
+                    without refreshing page!
+                </p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center">
+                <i class="fas fa-wifi fa-5x text-black dark:text-white"></i>
+                <h3 class="text-2xl font-bold text-black dark:text-white">Offline Enabled</h3>
+                <p class="text-black dark:text-white">
+                    SplittyPie is an offline-first application. It works when there is no Internet connection and syncs
+                    seamlessly where there is.
+                </p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center">
+                <i class="fas fa-dollar-sign fa-5x text-black dark:text-white"></i>
+                <h3 class="text-2xl font-bold text-black dark:text-white">Free to use</h3>
+                <p class="text-black dark:text-white">
+                    It's completely free of charge. No Sign In, No Registration, No Commitments.
+                </p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center">
+                <i class="fas fa-share-square fa-5x text-black dark:text-white"></i>
+                <h3 class="text-2xl font-bold text-black dark:text-white">Easy to share</h3>
+                <p class="text-black dark:text-white">
+                    To share just pass a link to a friend, that's it.
+                </p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center">
+                <i class="fas fa-map-marked-alt fa-5x text-black dark:text-white"></i>
+                <h3 class="text-2xl font-bold text-black dark:text-white">Works anywhere</h3>
+                <p class="text-black dark:text-white">
+                    Accessible on any device with modern web browser. It has look and feel of mobile device application
+                    thanks to resposive design.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center justify-center">
+        <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center cursor-pointer">
+        <span class="fa-top">
+            <i class="fas fa-arrow-up text-black dark:text-white"></i>
+        </span>
+        </div>
+    </div>
+    <div class="flex items-center justify-center mt-2">
+        <div class="w-full bg-gray-200 dark:bg-gray-700  flex items-center justify-center">
+         <span class="text-black dark:text-white">
+             CopyRight 2023 PIE G9
+         </span>
         </div>
     </div>
 </div>

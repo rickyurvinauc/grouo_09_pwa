@@ -1,3 +1,15 @@
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.fa-top').addEventListener('click', function() {
+        window.scrollTo(0, 0);
+    });
+});
+
+if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+} else {
+    document.documentElement.classList.remove('dark')
+}
+
 var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
