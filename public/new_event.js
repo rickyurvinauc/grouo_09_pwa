@@ -58,5 +58,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         };
 
         console.log(eventForm);
+        window.location.href='/'
     });
 });
