@@ -45,3 +45,10 @@ themeToggleBtn.addEventListener('click', function () {
 
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    fetch('../layout/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+        });
+})
