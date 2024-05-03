@@ -20,7 +20,7 @@
                 <span>     There are no transactions yet</span>
             </div>
             <div class="flex mt-2">
-                <button type="button"
+                <button data-modal-target="quick-add-modal" data-modal-toggle="quick-add-modal"
                         class="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Add transaction
                 </button>
@@ -33,10 +33,11 @@
         </div>
 
         <div class="w-full  bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
-            <div class="flow-root">
+            <a class="flow-root">
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li class="sm:py-4">
-                        <div class="grid grid-rows-1 grid-cols-10 justify-between items-center">
+                    <li class="sm:py-4 cursor-pointer hover:bg-gray-200 ">
+                        <a href="/edit-transaction"
+                           class="grid grid-rows-1 grid-cols-10 justify-between items-center expense-user">
                             <div class="flex flex-col items-center col-span-1 text-black dark:text-white">
                                 <span>May</span>
                                 <span>02</span>
@@ -51,10 +52,11 @@
                             <div class="col-span-2">
                                 <span class=" text-black dark:text-gray-300">78.00 USD</span>
                             </div>
-                        </div>
+                        </a>
                     </li>
-                    <li class="sm:py-4">
-                        <div class="grid grid-rows-1 grid-cols-10 justify-between items-center">
+                    <li class="sm:py-4  cursor-pointer hover:bg-gray-200">
+                        <a href="/edit-transaction"
+                           class="grid grid-rows-1 grid-cols-10 justify-between items-center expense-user">
                             <div class="flex flex-col items-center col-span-1 text-black dark:text-white">
                                 <span>May</span>
                                 <span>02</span>
@@ -63,11 +65,11 @@
                                 <span class="text-gray-600 dark:text-gray-300">Ingrid settled up with Ricardo</span>
                             </div>
                             <span class="col-span-2 text-black dark:text-gray-300">78.00 USD</span>
-                        </div>
+                        </a>
                     </li>
 
                 </ul>
-            </div>
         </div>
     </div>
+</div>
 </div>
