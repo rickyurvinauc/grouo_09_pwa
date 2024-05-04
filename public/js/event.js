@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
 
     const divs = document.getElementsByClassName('expense-user');
     for (let i = 0; i < divs.length; i++) {

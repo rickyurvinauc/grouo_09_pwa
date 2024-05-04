@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     // Selecciona el botón "Add participant" por su ID
     const addButton = document.getElementById('add-button');
 
