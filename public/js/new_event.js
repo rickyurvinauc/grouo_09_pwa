@@ -51,13 +51,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         const eventForm = {
+            id: formData.get('id_event') ? formData.get('id_event') : null,
             event_name: formData.get('event_name'),
             currency: formData.get('currency'),
             participant_name: formData.get('participant_name'),
             friends: friends,
         };
 
-        console.log(eventForm);
-        window.location.href='/'
+        if (eventForm.id) {
+            editEvent(eventForm);
+        }else{
+            createEvent(eventForm);
+        }
+
     });
 });
+
+function createEvent(eventForm) {
+    console.log(eventForm);
+    // window.location.href = '/'
+}
+
+function editEvent(eventForm) {
+    console.log(eventForm);
+    // window.location.href = '/event.js'
+}
