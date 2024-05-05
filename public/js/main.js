@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     Promise.all([
         fetchModal('settle-up-modal'),
         fetchModal('share-modal'),
@@ -90,6 +90,15 @@ themeToggleBtn.addEventListener('click', function () {
             localStorage.setItem('color-theme', 'dark');
         }
     }
-
 });
 
+window.addEventListener('load',async e=>{
+    if('serviceWorker' in navigator){
+        try{
+            navigator.serviceWorker.register('../../serviceWorker.js');
+            console.log('Service Worker Registered');
+        }catch(error){
+            console.log('Service Worker Registration Failed');
+        }
+    }
+})
