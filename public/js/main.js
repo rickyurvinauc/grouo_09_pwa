@@ -1,13 +1,14 @@
-window.addEventListener('load',async ()=>{
-    if('serviceWorker' in navigator){
-        try{
-            navigator.serviceWorker.register('../../serviceWorker.js');
-            console.log('Service Worker Registered');
-        }catch(error){
-            console.log('Service Worker Registration Failed');
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+        try {
+            navigator.serviceWorker.register('/serviceWorker.js')
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        } catch (error) {
+            console.log('Service Worker Registration Failed to');
         }
-    }
-})
+    })
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     Promise.all([
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(script);
     });
 });
+
 function fetchModal(modalId) {
     return fetch(`../modals/${modalId}.html`)
         .then(response => response.text())

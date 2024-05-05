@@ -1,55 +1,43 @@
-const staticAssets = [
-    './',
-    './pages/',
-    './css/output.css',
-    './js/main.js',
-    './js/edit_transaction.js',
-    './js/event.js',
-    './js/new_event.js',
-    './images/pie.jpg',
-    '../node_modules/flowbite/dist/flowbite.min.css '
+const cacheName = `static-v1-${new Date().getTime()}`
+
+const precacheResources = [
+    '/',
+    '/index.html',
+    '/pages/new_event.html',
+    '/modals/quick-add-modal.html',
+    '/modals/settle-up-modal.html',
+    '/modals/share-modal.html',
+    '/partials/events_page/overview.html',
+    '/partials/events_page/transactions.html',
+    '/manifest.json',
+    '/layout/footer.html',
+    '/css/output.css',
+    '/js/main.js',
+    '/images/pie.jpg',
+    '/images/mobile.png',
+    '/images/favicon.ico',
+    '/node_modules/flowbite/dist/flowbite.min.css ',
+    '/node_modules/flowbite/dist/flowbite.min.js'
 ]
-self.addEventListener('install', async event => {
-    const cache = await caches.open('static-meme');
-    cache.addAll(staticAssets);
+self.addEventListener('install', (event) => {
+    console.log('Service worker install event!');
+    event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(precacheResources)));
 });
 
-self.addEventListener('fetch', event => {
-    const {request} = event;
-    const url = new URL(request.url);
-    console.log({request})
-    console.log({url})
-    if (url.origin === location.origin) {
-        event.respondWith(cacheData(request));
-    } else {
-        event.respondWith(networkFirst(request));
-    }
+self.addEventListener('activate', (event) => {
+    console.log('Service worker activate event!');
 });
+self.addEventListener('fetch', (event) => {
+    console.log('Fetch intercepted for:', event.request.url);
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            console.log({cachedResponse})
 
-async function cacheData(request) {
-    try {
-        const cachedResponse = await caches.match(request);
-        console.log({cachedResponse})
-        return cachedResponse || fetch(request);
-    } catch (error) {
-        console.error('Fetch failed:', error);
-        // Return the cached response if available, otherwise return undefined
-        return await caches.match(request);
-    }
-}
-
-async function networkFirst(request) {
-    const cache = await caches.open('dynamic-meme');
-
-    try {
-        const response = await fetch(request);
-        console.log({response})
-        if (request.url.startsWith('http') || request.url.startsWith('https')) {
-            cache.put(request, response.clone());
-        }
-        return response;
-    } catch (error) {
-        return await cache.match(request);
-    }
-
-}
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+            console.log("event request", event.request)
+            return fetch(event.request);
+        }),
+    );
+});
