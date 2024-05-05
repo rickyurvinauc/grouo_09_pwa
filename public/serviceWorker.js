@@ -5,18 +5,16 @@ const staticAssets = [
     './public/js/edit_transaction.js',
     './public/js/event.js',
     './public/js/new_event.js',
-    './public/images/favicon.png',
+    './public/images/favicon.png'
 ]
 
 self.addEventListener('install', async event => {
     const cache = await caches.open('static-meme')
-    console.log({cache});
     cache.addAll(staticAssets)
 })
 
 self.addEventListener('fetch', event => {
     const {request} = event;
-    console.log({request});
     const url = new URL(request.url);
     if (url.origin === location.origin) {
         event.respondWith(cacheData(request));
@@ -26,17 +24,17 @@ self.addEventListener('fetch', event => {
 });
 
 async function cacheData(req) {
-    const cachedResponse = await caches.match(req);
-    return cachedResponse || fetch(req);
+    const cachedResponse = await caches.match(request);
+    return cachedResponse || fetch(request);
 }
 
 async function networkFirst(req) {
     const cache = await caches.open('dynamic-meme');
     try {
-        const res = await fetch(req);
-        cache.put(req, res.clone());
-        return res;
+        const response = await fetch(request);
+        cache.put(request, response.clone());
+        return response;
     } catch (error) {
-        return await cache.match(req);
+        return await cache.match(request);
     }
 }
