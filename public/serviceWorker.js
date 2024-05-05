@@ -1,11 +1,13 @@
 const staticAssets = [
     './',
-    './public/css/output.css',
-    './public/js/main.js',
-    './public/js/edit_transaction.js',
-    './public/js/event.js',
-    './public/js/new_event.js',
-    './public/images/favicon.png'
+    './pages/',
+    './css/output.css',
+    './js/main.js',
+    './js/edit_transaction.js',
+    './js/event.js',
+    './js/new_event.js',
+    './images/pie.jpg',
+    '../node_modules/flowbite/dist/flowbite.min.css '
 ]
 self.addEventListener('install', async event => {
     const cache = await caches.open('static-meme');
@@ -15,17 +17,19 @@ self.addEventListener('install', async event => {
 self.addEventListener('fetch', event => {
     const {request} = event;
     const url = new URL(request.url);
+    console.log({request})
+    console.log({url})
     if (url.origin === location.origin) {
         event.respondWith(cacheData(request));
     } else {
         event.respondWith(networkFirst(request));
     }
-
 });
 
 async function cacheData(request) {
     try {
         const cachedResponse = await caches.match(request);
+        console.log({cachedResponse})
         return cachedResponse || fetch(request);
     } catch (error) {
         console.error('Fetch failed:', error);

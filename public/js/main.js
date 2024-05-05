@@ -1,3 +1,14 @@
+window.addEventListener('load',async ()=>{
+    if('serviceWorker' in navigator){
+        try{
+            navigator.serviceWorker.register('../../serviceWorker.js');
+            console.log('Service Worker Registered');
+        }catch(error){
+            console.log('Service Worker Registration Failed');
+        }
+    }
+})
+
 document.addEventListener('DOMContentLoaded', () => {
     Promise.all([
         fetchModal('settle-up-modal'),
@@ -92,13 +103,3 @@ themeToggleBtn.addEventListener('click', function () {
     }
 });
 
-window.addEventListener('load',async e=>{
-    if('serviceWorker' in navigator){
-        try{
-            navigator.serviceWorker.register('../../serviceWorker.js');
-            console.log('Service Worker Registered');
-        }catch(error){
-            console.log('Service Worker Registration Failed');
-        }
-    }
-})
