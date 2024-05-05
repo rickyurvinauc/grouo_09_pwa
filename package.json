@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "flowbite": "^2.3.0",
-    "workbox-webpack-plugin": "^7.1.0"
+    "flowbite": "^2.3.0"
   }
 }

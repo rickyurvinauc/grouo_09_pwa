@@ -10,54 +10,36 @@ if ('serviceWorker' in navigator) {
     })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    Promise.all([
-        fetchModal('settle-up-modal'),
-        fetchModal('share-modal'),
-        fetchModal('quick-add-modal'),
-        fetchPartial('events_page/overview', 'overview-container'),
-        fetchPartial('events_page/transactions', 'transactions-container'),
-        fetchLayout('footer', 'footer-container'),
-    ]).then(() => {
+if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    let deferredPrompt;
+    const btnAdd = document.getElementById('install-button');
+    if (btnAdd) {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Update UI to notify the user they can add to home screen
+            btnAdd.style.display = 'block';
+        });
 
-        const script = document.createElement('script');
-        script.src = '/node_modules/flowbite/dist/flowbite.min.js';
-        document.body.appendChild(script);
-    });
+        btnAdd.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const script = document.createElement('script');
+    script.src = '/node_modules/flowbite/dist/flowbite.min.js';
+    document.body.appendChild(script);
 });
 
-function fetchModal(modalId) {
-    return fetch(`../modals/${modalId}.html`)
-        .then(response => response.text())
-        .then(data => {
-            const modalContainer = document.getElementById(`${modalId}-container`);
-            if (modalContainer) {
-                modalContainer.innerHTML = data;
-            }
-        });
-}
-
-function fetchPartial(partialPath, containerId) {
-    return fetch(`../partials/${partialPath}.html`)
-        .then(response => response.text())
-        .then(data => {
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.innerHTML = data;
-            }
-        });
-}
-
-function fetchLayout(layoutPath, containerId) {
-    return fetch(`../layout/${layoutPath}.html`)
-        .then(response => response.text())
-        .then(data => {
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.innerHTML = data;
-            }
-        });
-}
 
 if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark');
