@@ -24,8 +24,14 @@ self.addEventListener('fetch', event => {
 });
 
 async function cacheData(request) {
-    const cachedResponse = await caches.match(request);
-    return cachedResponse || fetch(request);
+    try {
+        const cachedResponse = await caches.match(request);
+        return cachedResponse || fetch(request);
+    } catch (error) {
+        console.error('Fetch failed:', error);
+        // Return the cached response if available, otherwise return undefined
+        return await caches.match(request);
+    }
 }
 
 async function networkFirst(request) {
@@ -33,7 +39,10 @@ async function networkFirst(request) {
 
     try {
         const response = await fetch(request);
-        cache.put(request, response.clone());
+        console.log({response})
+        if (request.url.startsWith('http') || request.url.startsWith('https')) {
+            cache.put(request, response.clone());
+        }
         return response;
     } catch (error) {
         return await cache.match(request);
