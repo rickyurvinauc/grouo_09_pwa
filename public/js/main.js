@@ -1,14 +1,56 @@
+import config from '../config.js';
+firebase.initializeApp(config);
+
+const messaging = firebase.messaging();
+
+messaging
+    .requestPermission()
+    .then(() => {
+        console.log("Notifications allowed")
+        return messaging.getToken();
+    })
+    .then(token => {
+        console.log("Token Is : " + token)
+    })
+    .catch(err => {
+        console.log("No permission to send push", err);
+    });
+
+messaging.onMessage(payload => {
+    console.log("Message received. ", payload);
+    const { title, ...options } = payload.notification;
+});
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', async () => {
         try {
             navigator.serviceWorker.register('/serviceWorker.js')
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            // navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function (registration) {
+            //     console.log('Service Worker Registration Successful with scope FCM: ', registration.scope);
+            // }).catch(function (err) {
+            //     console.log('Service Worker Registration Failed to FCM', err);
+            // })
         } catch (error) {
-            console.log('Service Worker Registration Failed to');
+            console.log('Service Worker Registration Failed to FCM');
         }
     })
 }
+
+
+// if (!("Notification" in window)) {
+//     console.log("This browser does not support desktop notification");
+// } else if (Notification.permission === "granted") {
+//     // Si el permiso ya fue otorgado
+//     messaging.onMessage(showNotification);
+// } else if (Notification.permission !== "denied") {
+//     // Si el permiso no ha sido denegado aún, solicitarlo al usuario
+//     Notification.requestPermission().then(function (permission) {
+//         // Si el usuario acepta, mostrar la notificación
+//         if (permission === "granted") {
+//             messaging.onMessage(showNotification);
+//         }
+//     });
+// }
 
 if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
     let deferredPrompt;
@@ -34,6 +76,7 @@ if (window.location.pathname === '/' || window.location.pathname === '/index.htm
         });
     }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     const script = document.createElement('script');
     script.src = '/node_modules/flowbite/dist/flowbite.min.js';

@@ -29,7 +29,7 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 .idea
-
+.env
+.env.local
 #//    "start": "nodemon server.js & browser-sync start --config bs-config.js"
-
 # node-waf configuration
