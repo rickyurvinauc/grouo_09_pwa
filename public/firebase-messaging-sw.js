@@ -5,7 +5,6 @@ importScripts('../config_fcm_sw.js');
 firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
-
 messaging.setBackgroundMessageHandler(payload => {
     const notification = JSON.parse(payload.data.notification);
     const notificationTitle = notification.title;

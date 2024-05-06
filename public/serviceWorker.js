@@ -52,3 +52,31 @@ self.addEventListener("fetch", (e) => {
         })(),
     );
 });
+
+// self.addEventListener('push', function(event) {
+//     console.info('Event: Push');
+//     var title = 'Breaking News';
+//     var body = {
+//         'body': 'Click to see the latest breaking news', 'tag': 'pwa',
+//         'icon': './images/icons/icon_x48.png'
+//     };
+//     event.waitUntil(self.registration.showNotification(title, body)
+//     );
+// });
+
+self.addEventListener('push', function(event) {
+    const options = {
+        body: event.data.text(),
+        icon: './images/icons/icon_x48.png'
+    };
+
+    event.waitUntil(
+        self.registration.showNotification('Título de la notificación', options)
+    );
+});
+self.addEventListener('notificationclick', function(event) {
+    console.log('On notification click: ', event.notification.data);
+
+    event.notification.close();
+
+});

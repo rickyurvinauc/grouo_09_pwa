@@ -1,7 +1,6 @@
-
 import config from '../config.js';
-firebase.initializeApp(config);
 
+firebase.initializeApp(config);
 const messaging = firebase.messaging();
 
 messaging
@@ -17,41 +16,153 @@ messaging
         console.log("No permission to send push", err);
     });
 
-messaging.onMessage(payload => {
-    console.log("Message received. ", payload);
-    const { title, ...options } = payload.notification;
+// messaging.onMessage(payload => {
+//     console.log("Message received. ", payload);
+//     const { title, ...options } = payload.notification;
+// });
+
+messaging.onMessage(function(payload) {
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+        icon: payload.notification.icon,
+    };
+    // console.log(notificationTitle,notificationOptions)
+
+    if (!("Notification" in window)) {
+        console.log("This browser does not support system notifications.");
+    } else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        var notification = new Notification(notificationTitle,notificationOptions);
+        notification.onclick = function(event) {
+            event.preventDefault();
+            window.open(payload.notification.click_action , '_blank');
+            notification.close();
+        }
+    }
 });
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', async () => {
         try {
             navigator.serviceWorker.register('/serviceWorker.js')
-            // navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function (registration) {
-            //     console.log('Service Worker Registration Successful with scope FCM: ', registration.scope);
-            // }).catch(function (err) {
-            //     console.log('Service Worker Registration Failed to FCM', err);
-            // })
         } catch (error) {
             console.log('Service Worker Registration Failed to FCM');
         }
     })
 }
 
+function checkIfPushIsEnabled() {
+    //---check if push notification permission has been denied by the user---
+    if (Notification.permission === 'denied') {
+        alert('User has blocked push notification.');
+        return;
+    }
+    //---check if push notification is supported or not---
+    if (!('PushManager' in window)) {
+        alert('Sorry, Push notification is ' + 'not supported on this browser.');
+        return;
+    }
+    //---get push notification subscription if serviceWorker is registered and ready---
+    navigator.serviceWorker.ready
+        .then(function (registration) {
+            registration.pushManager.getSubscription()
+                .then(function (subscription) {
+                    if (subscription) {
+                        //---user is currently subscribed to push---
+                        console.log('User is currently subscribed to push.');
+                    }
+                    else {
+                        //---user is not subscribed to push---
+                        console.log('User is not subscribed to push');
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error occurred enabling push ', error);
+                });
+        });
+}
 
-// if (!("Notification" in window)) {
-//     console.log("This browser does not support desktop notification");
-// } else if (Notification.permission === "granted") {
-//     // Si el permiso ya fue otorgado
-//     messaging.onMessage(showNotification);
-// } else if (Notification.permission !== "denied") {
-//     // Si el permiso no ha sido denegado aún, solicitarlo al usuario
-//     Notification.requestPermission().then(function (permission) {
-//         // Si el usuario acepta, mostrar la notificación
-//         if (permission === "granted") {
-//             messaging.onMessage(showNotification);
-//         }
-//     });
-// }
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+
+//---subscribe to push notification---
+function subscribeToPushNotification() {
+    navigator.serviceWorker.ready
+        .then(function(registration) {
+            if (!registration.pushManager) {
+                alert('This browser does not ' + 'support push notification.');
+                return false;
+            }
+            //---to subscribe push notification using pushmanager---
+            registration.pushManager.subscribe(
+                //---always show notification when received---
+                {
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array('BIFB0r53I7areXNEPiVjHexoGN3Ybgp5Wte-E8Q2XK2_Wp-vleoQiXTJBRSIvAUWoqeRjmK5OMuQH0rzwkRHiaY')
+                }
+            )
+                .then(function (subscription) {
+                    console.log('Push notification subscribed.');
+                    console.log(subscription);
+                })
+                .catch(function (error) {
+                    console.error('Push notification subscription error: ', error);
+                });
+        })
+}
+
+//---unsubscribe from push notification---
+function unsubscribeFromPushNotification() {
+    navigator.serviceWorker.ready
+        .then(function(registration) {
+            registration.pushManager.getSubscription()
+                .then(function (subscription) {
+                    if(!subscription) {
+                        alert('Unable to unsubscribe from push ' + 'notification.');
+                        return;
+                    }
+                    subscription.unsubscribe()
+                        .then(function () {
+                            console.log('Push notification unsubscribed.');
+                            console.log(subscription);
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                        });
+                })
+                .catch(function (error) {
+                    console.error('Failed to unsubscribe push ' +'notification.');
+                });
+        })
+}
+
+const pushElement = document.querySelector('.push');
+const pushImage = document.querySelector('.image');
+pushElement.addEventListener('click', function () {
+    //---check if you are already subscribed to push notifications---
+    if (pushElement.dataset.checked === 'true') {
+        unsubscribeFromPushNotification();
+    }
+    else {
+        subscribeToPushNotification();
+    }
+});
+//---check if push notification is supported---
+checkIfPushIsEnabled()
+
 
 if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
     let deferredPrompt;

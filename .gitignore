@@ -31,5 +31,7 @@ bower_components
 .idea
 .env
 .env.local
+/public/config.js
+/public/config_fcm_sw.js
 #//    "start": "nodemon server.js & browser-sync start --config bs-config.js"
 # node-waf configuration
