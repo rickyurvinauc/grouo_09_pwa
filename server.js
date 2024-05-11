@@ -10,7 +10,7 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 var subscribers = []
 
 var FCM = require('fcm-node');
-var serverKey = 'eFa4DixsQfI:APA91bHjKjIz8ZAYQmQtI6gLXULVhZFVZA91Lo7p9teAUb_-6COFd3PQ8dIaojeDexv20CoRBAE-rHR8WlfFC8hs474IoLIXQAiW-_tHPFd-cahckL8yKr7s5TS1zbBMg8iC2SeHtOtl';
+var serverKey = 'fxKSEC4Ebk8liF2rntofb_:APA91bEsExhLruVI-kS8FlWFgGRfJucxp45Mz7dG4lIyC-vu9XpFI-X-wRrMEFykUCqF_U4QbMUPd0ObAd02pND9NXkaaGBg8_boDLBGMy8TgqzpEQfR1tCNb0vLzlDek2pvMpupECJ5';
 var fcm = new FCM(serverKey);
 
 app.get('/', (req, res) => {

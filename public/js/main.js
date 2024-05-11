@@ -149,22 +149,23 @@ function unsubscribeFromPushNotification() {
         })
 }
 
-const pushElement = document.querySelector('.push');
-const pushImage = document.querySelector('.image');
-pushElement.addEventListener('click', function () {
-    //---check if you are already subscribed to push notifications---
-    if (pushElement.dataset.checked === 'true') {
-        unsubscribeFromPushNotification();
-    }
-    else {
-        subscribeToPushNotification();
-    }
-});
+
 //---check if push notification is supported---
 checkIfPushIsEnabled()
 
 
 if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    const pushElement = document.querySelector('.push');
+    const pushImage = document.querySelector('.image');
+    pushElement.addEventListener('click', function () {
+        //---check if you are already subscribed to push notifications---
+        if (pushElement.dataset.checked === 'true') {
+            unsubscribeFromPushNotification();
+        }
+        else {
+            subscribeToPushNotification();
+        }
+    });
     let deferredPrompt;
     const btnAdd = document.getElementById('install-button');
     if (btnAdd) {
